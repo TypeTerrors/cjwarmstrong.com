@@ -1,0 +1,160 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vercel-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  VERCEL_CLI_VERSION: 55.0.0
+
+jobs:
+  deploy-preview:
+    name: Deploy preview
+    if: github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_DEV_DOMAIN: ${{ secrets.VERCEL_DEV_DOMAIN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@${{ env.VERCEL_CLI_VERSION }}
+
+      - name: Pull Vercel preview environment
+        run: vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
+
+      - name: Build preview
+        run: vercel build --token="$VERCEL_TOKEN"
+
+      - name: Deploy preview
+        id: deploy
+        run: |
+          deployment_url="$(vercel deploy --prebuilt --token="$VERCEL_TOKEN")"
+          echo "deployment_url=$deployment_url" >> "$GITHUB_OUTPUT"
+
+      - name: Alias preview domain
+        run: vercel alias set "${{ steps.deploy.outputs.deployment_url }}" "$VERCEL_DEV_DOMAIN" --token="$VERCEL_TOKEN"
+
+      - name: Generate preview tag
+        id: preview-tag
+        if: github.event_name == 'push'
+        run: |
+          tag_name="preview-$(date -u +'%Y%m%d%H%M%S')-${GITHUB_SHA::7}"
+          echo "tag_name=$tag_name" >> "$GITHUB_OUTPUT"
+
+      - name: Create preview tag
+        if: github.event_name == 'push'
+        env:
+          TAG_NAME: ${{ steps.preview-tag.outputs.tag_name }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "$TAG_NAME" -m "Preview deployment $TAG_NAME"
+          git push origin "$TAG_NAME"
+
+      - name: Deployment summary
+        run: |
+          {
+            echo "### Preview deployed"
+            echo ""
+            echo "- Vercel deployment: ${{ steps.deploy.outputs.deployment_url }}"
+            echo "- Preview domain alias configured"
+            if [ -n "${{ steps.preview-tag.outputs.tag_name }}" ]; then
+              echo "- Tag: ${{ steps.preview-tag.outputs.tag_name }}"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  deploy-production:
+    name: Deploy production
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@${{ env.VERCEL_CLI_VERSION }}
+
+      - name: Pull Vercel production environment
+        run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+
+      - name: Build production
+        run: vercel build --prod --token="$VERCEL_TOKEN"
+
+      - name: Deploy production
+        id: deploy
+        run: |
+          deployment_url="$(vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN")"
+          echo "deployment_url=$deployment_url" >> "$GITHUB_OUTPUT"
+
+      - name: Generate release tag
+        id: release-tag
+        if: github.event_name == 'push'
+        run: |
+          tag_name="release-$(date -u +'%Y%m%d%H%M%S')-${GITHUB_SHA::7}"
+          echo "tag_name=$tag_name" >> "$GITHUB_OUTPUT"
+
+      - name: Create release tag
+        if: github.event_name == 'push'
+        env:
+          TAG_NAME: ${{ steps.release-tag.outputs.tag_name }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "$TAG_NAME" -m "Production release $TAG_NAME"
+          git push origin "$TAG_NAME"
+
+      - name: Create GitHub release
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ steps.release-tag.outputs.tag_name }}
+        run: |
+          gh release create "$TAG_NAME" \
+            --verify-tag \
+            --title "$TAG_NAME" \
+            --notes "Production deployment: ${{ steps.deploy.outputs.deployment_url }}"
+
+      - name: Deployment summary
+        run: |
+          {
+            echo "### Production deployed"
+            echo ""
+            echo "- Vercel deployment: ${{ steps.deploy.outputs.deployment_url }}"
+            if [ -n "${{ steps.release-tag.outputs.tag_name }}" ]; then
+              echo "- Tag: ${{ steps.release-tag.outputs.tag_name }}"
+              echo "- Release: ${{ steps.release-tag.outputs.tag_name }}"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
