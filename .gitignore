@@ -29,3 +29,4 @@ pnpm-debug.log*
 
 assets/
 .codex-screens/
+.env*

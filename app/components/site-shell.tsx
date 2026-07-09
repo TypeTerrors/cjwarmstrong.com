@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
-import portrait from "../../assets/Profile Pic.png";
 import {
   books,
   contactDetails,
@@ -126,8 +125,9 @@ export function AuthorPreview() {
         <Image
           alt="Portrait of CJW Armstrong"
           className="portrait-image"
-          placeholder="blur"
-          src={portrait}
+          height={1402}
+          src="/images/profile-pic.png"
+          width={1122}
         />
       </div>
 

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import portrait from "../../assets/Profile Pic.png";
 import { substackUrl } from "../content";
 import { SectionHeader, SiteShell } from "../components/site-shell";
 
@@ -11,8 +10,9 @@ export default function AboutPage() {
           <Image
             alt="Portrait of CJW Armstrong"
             className="portrait-image"
-            placeholder="blur"
-            src={portrait}
+            height={1402}
+            src="/images/profile-pic.png"
+            width={1122}
           />
         </div>
 
