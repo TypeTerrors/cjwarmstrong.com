@@ -29,6 +29,8 @@ const postImages = {
     "https://substackcdn.com/image/fetch/$s_!SI57!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F97f62892-2e7a-410f-8b83-4bb62a4425f7_975x1148.jpeg",
   extraterrestrial:
     "https://substackcdn.com/image/fetch/$s_!ugIo!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F64521f38-b269-4df6-b663-df53abbd5e96_510x736.jpeg",
+  anchor:
+    "https://substackcdn.com/image/fetch/$s_!rRw3!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5bd293b5-f4c0-4316-9976-3c5f7164ad86_900x577.jpeg",
 } as const;
 
 export const featuredRelease = {
@@ -49,6 +51,15 @@ export const books = [
     accent: "teal",
     href: "https://pneumanauts.substack.com/p/the-origins-of-pneumanauts",
     image: postImages.origins,
+  },
+  {
+    title: "The 'Pneumanauts' Intertextual Library",
+    collection: "The Novel",
+    summary:
+      "Compiling a list of works that thematically complement my debut novel, published by Eclogue Press",
+    accent: "teal",
+    href: "https://pneumanauts.substack.com/p/the-pneumanauts-intertextual-library",
+    image: postImages.anchor,
   },
   {
     title: "Pneumanauts: The (Semi) Official Soundtrack",
