@@ -1,12 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0b1020;
-  --foreground: #f8fafc;
-  --muted: #94a3b8;
-  --accent: #7dd3fc;
-  --card: rgba(15, 23, 42, 0.72);
-  --border: rgba(148, 163, 184, 0.22);
+  --background: #060708;
+  --surface: rgba(12, 14, 16, 0.96);
+  --surface-strong: #0d1012;
+  --surface-soft: rgba(22, 25, 28, 0.82);
+  --foreground: #f3ede2;
+  --muted: #c7bdaa;
+  --muted-soft: rgba(215, 203, 180, 0.72);
+  --accent: #d69a6d;
+  --accent-strong: #f0b17b;
+  --line: rgba(255, 244, 225, 0.09);
+  --line-strong: rgba(255, 244, 225, 0.14);
+  --shadow: 0 40px 80px rgba(0, 0, 0, 0.32);
 }
 
 * {
@@ -21,11 +27,11 @@ body {
   min-height: 100vh;
   margin: 0;
   background:
-    radial-gradient(circle at top left, rgba(125, 211, 252, 0.22), transparent 32rem),
-    radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.18), transparent 30rem),
-    var(--background);
+    radial-gradient(circle at top left, rgba(146, 92, 45, 0.14), transparent 32rem),
+    radial-gradient(circle at bottom right, rgba(133, 111, 79, 0.18), transparent 36rem),
+    linear-gradient(180deg, #080909 0%, #050607 100%);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), sans-serif;
 }
 
 a {
@@ -33,6 +39,1226 @@ a {
   text-decoration: none;
 }
 
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
 ::selection {
-  background: rgba(125, 211, 252, 0.35);
+  background: rgba(214, 154, 109, 0.28);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.site-shell {
+  padding: 24px;
+}
+
+.site-frame {
+  position: relative;
+  max-width: 1440px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 60% 18%, rgba(132, 104, 74, 0.1), transparent 26rem),
+    linear-gradient(180deg, rgba(16, 18, 20, 0.97) 0%, rgba(8, 10, 12, 0.98) 100%);
+  box-shadow: var(--shadow);
+}
+
+.site-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.015)),
+    radial-gradient(circle at 50% 24%, rgba(233, 182, 131, 0.08), transparent 18rem);
+  pointer-events: none;
+}
+
+.site-header,
+.hero-grid,
+.feature-panel,
+.signup-band,
+.page-hero,
+.about-layout,
+.contact-layout,
+.mailing-layout,
+.site-footer {
+  position: relative;
+  z-index: 1;
+}
+
+.site-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+  padding: 26px 34px;
+  border-bottom: 1px solid var(--line);
+  z-index: 10;
+}
+
+.site-brand,
+.section-title,
+.hero-title,
+.book-card__copy h3,
+.list-card__copy h3,
+.series-card h3 {
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.site-brand {
+  font-size: clamp(2rem, 3vw, 2.7rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.site-nav {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+}
+
+.site-nav a,
+.text-link {
+  position: relative;
+  color: var(--foreground);
+  transition: color 180ms ease;
+}
+
+.site-nav a:hover,
+.text-link:hover,
+.site-socials a:hover {
+  color: var(--accent-strong);
+}
+
+.site-nav .is-active::after,
+.text-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+}
+
+.site-socials {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.header-buy-link {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border: 1px solid rgba(214, 154, 109, 0.34);
+  color: var(--accent-strong);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.header-buy-link:hover {
+  border-color: rgba(240, 177, 123, 0.72);
+  background: rgba(214, 154, 109, 0.08);
+  color: var(--foreground);
+  transform: translateY(-2px);
+}
+
+.header-buy-link__mobile {
+  display: none;
+}
+
+.site-socials a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition:
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.site-socials a:hover {
+  border-color: rgba(214, 154, 109, 0.42);
+  transform: translateY(-2px);
+}
+
+.site-socials__substack {
+  color: var(--accent-strong);
+}
+
+.substack-mark {
+  display: grid;
+  width: 16px;
+  height: 18px;
+  gap: 2px;
+}
+
+.substack-mark span {
+  display: block;
+  border-radius: 1px;
+  background: currentColor;
+}
+
+.substack-mark span:nth-child(1),
+.substack-mark span:nth-child(2) {
+  height: 2px;
+}
+
+.substack-mark span:nth-child(3) {
+  height: 12px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 72%, 0 100%);
+}
+
+.site-mobile-nav {
+  display: none;
+}
+
+.site-mobile-nav summary {
+  display: grid;
+  gap: 5px;
+  width: 42px;
+  height: 24px;
+  align-content: center;
+  margin-left: auto;
+  list-style: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.site-mobile-nav summary::-webkit-details-marker {
+  display: none;
+}
+
+.site-mobile-nav summary:focus-visible {
+  outline: 1px solid rgba(240, 177, 123, 0.72);
+  outline-offset: 6px;
+}
+
+.site-mobile-nav summary span {
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--foreground);
+}
+
+.site-mobile-nav nav {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  z-index: 30;
+  display: grid;
+  min-width: 220px;
+  padding: 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 18px;
+  background: rgba(10, 12, 14, 0.98);
+  box-shadow: var(--shadow);
+}
+
+.site-mobile-nav nav a {
+  padding: 12px 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.8rem;
+}
+
+.site-mobile-nav nav .site-mobile-nav__buy {
+  margin-top: 6px;
+  border-top: 1px solid var(--line-strong);
+  color: var(--accent-strong);
+}
+
+.hero-grid,
+.page-hero,
+.about-layout,
+.contact-layout,
+.mailing-layout {
+  display: grid;
+  gap: 32px;
+  padding: 56px 34px;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero-grid {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  grid-template-columns: minmax(0, 1fr) minmax(420px, 0.92fr);
+  align-items: center;
+  min-height: 690px;
+  background:
+    linear-gradient(90deg, rgba(8, 10, 12, 0.24) 0%, rgba(8, 10, 12, 0.1) 47%, rgba(8, 10, 12, 0.24) 100%),
+    url("/site-art/home-hero-stage.webp") center / cover no-repeat;
+}
+
+.hero-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(7, 9, 11, 0.56) 0%,
+    rgba(7, 9, 11, 0.38) 42%,
+    rgba(7, 9, 11, 0.08) 100%
+  );
+  z-index: -1;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+}
+
+.section-eyebrow {
+  margin: 0 0 18px;
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  margin: 0;
+  max-width: 10ch;
+  font-size: clamp(4.4rem, 9vw, 8.7rem);
+  line-height: 0.84;
+  text-transform: uppercase;
+}
+
+.hero-subtitle,
+.quote-panel p,
+.quote-banner p {
+  margin: 20px 0 0;
+  color: var(--accent-strong);
+  font-family: var(--font-serif), serif;
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  font-style: italic;
+  line-height: 1.18;
+}
+
+.hero-description,
+.section-description,
+.author-copy p,
+.book-card__copy p,
+.list-card__copy p,
+.series-card p,
+.benefit-card p,
+.detail-list strong,
+.detail-list span,
+.contact-form label span,
+.quote-banner cite,
+.site-footer,
+.signup-band input,
+.contact-form input,
+.contact-form textarea {
+  color: var(--muted-soft);
+}
+
+.hero-description,
+.section-description,
+.author-copy p,
+.book-card__copy p,
+.list-card__copy p,
+.series-card p,
+.benefit-card p,
+.detail-list strong {
+  margin: 22px 0 0;
+  max-width: 60ch;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+.hero-actions,
+.list-card__actions,
+.site-footer div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 18px;
+  align-items: center;
+}
+
+.hero-actions {
+  margin-top: 34px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 24px;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background: linear-gradient(135deg, #cf8b5d 0%, #ecb07d 100%);
+  color: #111315;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition:
+    transform 180ms ease,
+    filter 180ms ease;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+}
+
+.button--purchase {
+  box-shadow:
+    0 0 0 1px rgba(240, 177, 123, 0.14),
+    0 14px 34px rgba(0, 0, 0, 0.28);
+}
+
+.button--purchase::after {
+  content: "\2197";
+  margin-left: 12px;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.button--ghost {
+  border-color: var(--line-strong);
+  background: transparent;
+  color: var(--foreground);
+}
+
+.button--ghost:hover {
+  border-color: rgba(214, 154, 109, 0.35);
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--foreground);
+  font-size: 0.84rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.text-link::after {
+  position: static;
+  width: 26px;
+  height: 1px;
+}
+
+.hero-visual {
+  position: relative;
+  min-height: 560px;
+  padding: 26px;
+}
+
+.page-hero__art {
+  border: 1px solid rgba(214, 154, 109, 0.08);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, rgba(214, 154, 109, 0.08) 0%, transparent 34%),
+    repeating-radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.015) 0 2px,
+      transparent 2px 28px
+    );
+}
+
+.feature-panel {
+  padding: 40px 34px;
+  border-bottom: 1px solid var(--line);
+}
+
+.feature-panel--author {
+  display: grid;
+  grid-template-columns: minmax(240px, 320px) minmax(0, 1fr) minmax(300px, 360px);
+  gap: 28px;
+  align-items: stretch;
+}
+
+.portrait-frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 0.78;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent);
+}
+
+.portrait-frame--tall {
+  aspect-ratio: 0.74;
+}
+
+.portrait-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 28%;
+}
+
+.author-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+}
+
+.section-copy {
+  min-width: 0;
+  max-width: 760px;
+}
+
+.section-title {
+  margin: 0;
+  font-size: clamp(2.6rem, 5vw, 4.8rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.quote-panel,
+.quote-banner {
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, rgba(214, 154, 109, 0.08), transparent 48%),
+    rgba(11, 13, 15, 0.88);
+}
+
+.quote-panel--mountain,
+.quote-banner--mountain {
+  background:
+    linear-gradient(135deg, rgba(9, 11, 14, 0.08), rgba(9, 11, 14, 0.58)),
+    url("/site-art/quote-mountain.webp") center 72% / cover no-repeat,
+    rgba(11, 13, 15, 0.88);
+}
+
+.quote-panel {
+  min-width: 0;
+  display: grid;
+  align-content: center;
+  gap: 14px;
+  padding: 32px 30px;
+}
+
+.quote-panel span,
+.quote-banner span {
+  color: var(--accent);
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.quote-panel p {
+  margin: 0;
+  font-size: clamp(1.45rem, 1.55vw, 1.85rem);
+  line-height: 1.25;
+}
+
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: end;
+}
+
+.book-grid,
+.series-grid,
+.benefit-grid {
+  display: grid;
+  gap: 22px;
+  margin-top: 32px;
+}
+
+.book-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.book-card,
+.series-card,
+.benefit-card,
+.list-card {
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(17, 19, 22, 0.94), rgba(10, 11, 13, 0.98));
+}
+
+.book-card {
+  display: grid;
+  gap: 20px;
+  padding: 18px;
+}
+
+.book-cover {
+  position: relative;
+  display: grid;
+  align-content: end;
+  min-height: 300px;
+  padding: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 245, 224, 0.08);
+  background-color: #07090a;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.book-cover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.18) 100%);
+}
+
+.book-cover span,
+.book-cover strong {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+}
+
+.book-cover span {
+  color: rgba(12, 13, 14, 0.68);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.book-cover strong {
+  margin-top: 10px;
+  max-width: 7ch;
+  color: #0d1114;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  line-height: 0.92;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.book-cover--remote {
+  background-position: center;
+  background-size: cover;
+}
+
+.book-card__copy {
+  padding: 0 4px 6px;
+}
+
+.feature-panel--author .section-title {
+  font-size: clamp(2.4rem, 4vw, 4rem);
+}
+
+.book-card__copy p:first-child,
+.list-card__copy p:first-child,
+.series-card p:first-child {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.book-card__copy h3,
+.list-card__copy h3,
+.series-card h3 {
+  margin: 12px 0 0;
+  font-size: 3rem;
+  line-height: 0.94;
+  text-transform: uppercase;
+}
+
+.signup-band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  align-items: center;
+  gap: 28px;
+  padding: 40px 34px;
+  min-height: 260px;
+  background: #080a0d;
+}
+
+.signup-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(8, 10, 12, 0.28), rgba(8, 10, 12, 0.04)),
+    url("/site-art/signup-galaxy.webp") center / cover no-repeat;
+  opacity: 0.94;
+  z-index: -1;
+}
+
+.signup-band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(8, 10, 12, 0.2) 0%,
+    rgba(8, 10, 12, 0.34) 44%,
+    rgba(8, 10, 12, 0.54) 70%,
+    rgba(8, 10, 12, 0.68) 100%
+  );
+  z-index: -1;
+}
+
+.signup-band > * {
+  position: relative;
+  z-index: 1;
+}
+
+.signup-form,
+.contact-form {
+  display: grid;
+  gap: 16px;
+}
+
+.signup-form {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.signup-form--links {
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-content: start;
+}
+
+.signup-form--links .button {
+  width: auto;
+}
+
+.signup-form input,
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  min-height: 54px;
+  padding: 14px 16px;
+  border: 1px solid var(--line-strong);
+  background: rgba(17, 19, 21, 0.88);
+  outline: none;
+}
+
+.signup-form input:focus,
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: rgba(214, 154, 109, 0.42);
+}
+
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 26px 34px 34px;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-footer__buy {
+  color: var(--accent-strong);
+}
+
+.site-footer__buy:hover {
+  color: var(--foreground);
+}
+
+.page-hero {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.7fr);
+  align-items: center;
+}
+
+.page-hero--books {
+  min-height: 420px;
+  grid-template-columns: minmax(0, 760px);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(7, 9, 11, 0.92) 0%,
+      rgba(7, 9, 11, 0.76) 42%,
+      rgba(7, 9, 11, 0.28) 100%
+    ),
+    url("/site-art/books-eye-panel.webp") center / cover no-repeat;
+}
+
+.page-hero--series {
+  min-height: 420px;
+  grid-template-columns: minmax(0, 760px);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(7, 9, 11, 0.92) 0%,
+      rgba(7, 9, 11, 0.76) 42%,
+      rgba(7, 9, 11, 0.28) 100%
+    ),
+    url("/site-art/books-eye-panel.webp") center / cover no-repeat;
+}
+
+.page-hero--single {
+  grid-template-columns: 1fr;
+}
+
+.page-hero__art {
+  min-height: 280px;
+}
+
+.page-hero--books .page-hero__art {
+  display: none;
+}
+
+.tab-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.tab-row__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted-soft);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.tab-row__item--active {
+  border-color: rgba(214, 154, 109, 0.36);
+  color: var(--foreground);
+}
+
+.stacked-list {
+  display: grid;
+  gap: 18px;
+}
+
+.list-card {
+  display: grid;
+  grid-template-columns: minmax(180px, 220px) minmax(0, 1fr);
+  gap: 22px;
+  padding: 18px;
+}
+
+.list-card__cover {
+  min-height: 240px;
+}
+
+.list-card__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.list-card__actions {
+  margin-top: 24px;
+}
+
+.series-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.series-card,
+.benefit-card {
+  padding: 24px;
+}
+
+.about-layout {
+  grid-template-columns: minmax(300px, 0.86fr) minmax(0, 1fr);
+  align-items: stretch;
+}
+
+.about-layout__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+}
+
+.about-columns {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.about-columns p {
+  margin: 0;
+  line-height: 1.9;
+  color: var(--muted-soft);
+}
+
+.quote-banner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  padding: 28px 30px;
+}
+
+.quote-banner p {
+  margin: 0;
+}
+
+.quote-banner cite {
+  display: block;
+  margin-top: 12px;
+  font-style: normal;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+.contact-layout {
+  grid-template-columns: minmax(0, 0.9fr) minmax(340px, 1fr);
+  align-items: start;
+}
+
+.detail-list {
+  display: grid;
+  gap: 22px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.detail-list li {
+  display: grid;
+  gap: 6px;
+}
+
+.detail-list span {
+  color: var(--accent);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.contact-form {
+  padding: 28px;
+  border: 1px solid var(--line);
+  background: rgba(14, 17, 19, 0.88);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.form-grid__full {
+  grid-column: 1 / -1;
+}
+
+.contact-form label {
+  display: grid;
+  gap: 8px;
+}
+
+.contact-form label span {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.contact-form textarea {
+  min-height: 180px;
+  resize: vertical;
+}
+
+.mailing-layout {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.mailing-layout__hero {
+  display: grid;
+  gap: 28px;
+  padding: 36px;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, rgba(8, 10, 12, 0.36), rgba(8, 10, 12, 0.84)),
+    url("/site-art/signup-galaxy.webp") left center / cover no-repeat;
+}
+
+.signup-form--panel {
+  max-width: 720px;
+}
+
+.benefit-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 1120px) {
+  .hero-grid,
+  .page-hero,
+  .about-layout,
+  .contact-layout,
+  .signup-band {
+    grid-template-columns: 1fr;
+  }
+
+  .site-header {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 18px;
+    min-height: 74px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    z-index: 20;
+  }
+
+  .site-brand {
+    font-size: clamp(1.7rem, 3.4vw, 2.25rem);
+  }
+
+  .site-nav,
+  .site-socials {
+    display: none;
+  }
+
+  .site-header__actions {
+    gap: 0;
+  }
+
+  .header-buy-link {
+    min-height: 38px;
+    padding: 0 13px;
+    font-size: 0.68rem;
+  }
+
+  .header-buy-link__desktop {
+    display: none;
+  }
+
+  .header-buy-link__mobile {
+    display: inline;
+  }
+
+  .site-mobile-nav {
+    position: relative;
+    display: block;
+    justify-self: end;
+    width: 36px;
+    z-index: 25;
+  }
+
+  .site-mobile-nav summary {
+    width: 36px;
+    height: 22px;
+  }
+
+  .site-mobile-nav nav {
+    top: calc(100% + 16px);
+    right: 0;
+    z-index: 40;
+  }
+
+  .feature-panel--author {
+    grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+  }
+
+  .quote-panel {
+    grid-column: 1 / -1;
+  }
+
+  .book-grid,
+  .series-grid,
+  .benefit-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero-visual {
+    display: none;
+  }
+
+  .hero-grid {
+    min-height: auto;
+  }
+
+  .signup-band::before {
+    opacity: 0.86;
+  }
+
+  .signup-band::after {
+    background: linear-gradient(
+      180deg,
+      rgba(8, 10, 12, 0.22) 0%,
+      rgba(8, 10, 12, 0.54) 44%,
+      rgba(8, 10, 12, 0.9) 100%
+    );
+  }
+}
+
+@media (max-width: 960px) {
+  .site-shell {
+    padding: 16px;
+  }
+
+  .site-header,
+  .hero-grid,
+  .feature-panel,
+  .signup-band,
+  .page-hero,
+  .about-layout,
+  .contact-layout,
+  .mailing-layout,
+  .site-footer {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .site-header {
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .feature-panel--author {
+    grid-template-columns: 1fr;
+  }
+
+  .panel-heading,
+  .site-footer {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .list-card {
+    grid-template-columns: 1fr;
+  }
+
+  .about-columns,
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .site-shell {
+    padding: 0;
+  }
+
+  .site-frame {
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+
+  .site-header,
+  .hero-grid,
+  .feature-panel,
+  .signup-band,
+  .page-hero,
+  .about-layout,
+  .contact-layout,
+  .mailing-layout,
+  .site-footer {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .hero-grid {
+    min-height: auto;
+    background:
+      linear-gradient(90deg, rgba(7, 9, 11, 0.78) 0%, rgba(7, 9, 11, 0.48) 54%, rgba(7, 9, 11, 0.18) 100%),
+      url("/site-art/home-hero-stage.webp") 62% center / cover no-repeat;
+  }
+
+  .hero-grid::before {
+    background: linear-gradient(
+      90deg,
+      rgba(7, 9, 11, 0.82) 0%,
+      rgba(7, 9, 11, 0.66) 48%,
+      rgba(7, 9, 11, 0.24) 100%
+    );
+  }
+
+  .hero-title {
+    max-width: 8ch;
+    font-size: clamp(3.4rem, 16vw, 5.8rem);
+  }
+
+  .hero-visual {
+    display: none;
+  }
+
+  .book-card__copy h3,
+  .list-card__copy h3,
+  .section-title {
+    font-size: clamp(2.2rem, 10vw, 3.6rem);
+  }
+
+  .hero-subtitle,
+  .quote-panel p,
+  .quote-banner p {
+    font-size: 1.4rem;
+  }
+
+  .book-grid,
+  .series-grid,
+  .benefit-grid,
+  .signup-form {
+    grid-template-columns: 1fr;
+  }
+
+  .book-cover,
+  .list-card__cover {
+    min-height: 220px;
+  }
+
+  .button,
+  .signup-form input {
+    width: 100%;
+  }
 }
