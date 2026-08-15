@@ -27,6 +27,18 @@ The site generates:
 
 After deployment, submit `https://cjwarmstrong.com/sitemap.xml` in Google Search Console.
 
+The placeholder Privacy Policy and Terms of Use pages are intentionally marked
+`noindex` and excluded from the sitemap. Replace their placeholder copy with
+approved legal text before making those routes indexable.
+
+## Production Release Checklist
+
+1. Set `NEXT_PUBLIC_SITE_URL=https://cjwarmstrong.com` in the production environment.
+2. Replace the placeholder legal copy in `/privacy-policy` and `/terms-of-use`.
+3. Run `npm run lint` and `npm run build`.
+4. Deploy and verify `/robots.txt` and `/sitemap.xml` on the production domain.
+5. Submit the sitemap in Google Search Console after deployment.
+
 ## Vercel And Cloudflare
 
 1. Import this project into Vercel.

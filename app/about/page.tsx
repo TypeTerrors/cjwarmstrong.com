@@ -1,6 +1,14 @@
 import Image from "next/image";
 import { substackUrl } from "../content";
 import { SectionHeader, SiteShell } from "../components/site-shell";
+import { createPageMetadata } from "../metadata";
+
+export const metadata = createPageMetadata({
+  title: "About",
+  description:
+    "Learn about CJW Armstrong, author of Pneumanauts and writer of The Pneumanaut.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (
@@ -11,6 +19,7 @@ export default function AboutPage() {
             alt="Portrait of CJW Armstrong"
             className="portrait-image"
             height={1402}
+            loading="eager"
             src="/images/profile-pic.png"
             width={1122}
           />
@@ -18,14 +27,15 @@ export default function AboutPage() {
 
         <div className="about-layout__copy">
           <SectionHeader
+            as="h1"
             eyebrow="About the author"
-            title="Cameron J. W. Armstrong writes The Pneumanaut"
+            title="CJW Armstrong writes The Pneumanaut"
             description="His work moves between science fiction, theology, cosmology, myth, games, music, and the spiritual questions that keep pulling those worlds together."
           />
 
           <div className="about-columns">
             <p>
-              Cameron&apos;s debut novel, Pneumanauts, is being published by Eclogue
+              CJW&apos;s debut novel, Pneumanauts, is being published by Eclogue
               Press. On Substack, he writes about the novel&apos;s origins,
               influences, soundtrack, and publication journey.
             </p>

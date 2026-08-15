@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { featuredRelease, substackSubscribeUrl } from "./content";
+import { bookStoreUrl, featuredRelease } from "./content";
+import { createPageMetadata } from "./metadata";
 import {
   AuthorPreview,
   BooksGrid,
@@ -7,6 +8,14 @@ import {
   MailingListBand,
   SiteShell,
 } from "./components/site-shell";
+
+export const metadata = createPageMetadata({
+  title: "CJW Armstrong",
+  absoluteTitle: "CJW Armstrong | Author of Pneumanauts",
+  description:
+    "CJW Armstrong is the author of Pneumanauts and The Pneumanaut on Substack.",
+  path: "/",
+});
 
 export default function HomePage() {
   return (
@@ -19,20 +28,21 @@ export default function HomePage() {
           <p className="hero-description">{featuredRelease.summary}</p>
 
           <div className="hero-actions">
-            <Link className="button" href="/books">
-              Explore the work
-            </Link>
-            <Link className="button button--ghost" href="/about">
-              About Cameron
-            </Link>
             <a
-              className="text-link"
-              href={substackSubscribeUrl}
+              aria-label="Buy Pneumanauts from Eclogue Press"
+              className="button button--purchase"
+              href={bookStoreUrl}
               rel="noreferrer"
               target="_blank"
             >
-              Subscribe on Substack
+              Buy Pneumanauts
             </a>
+            <Link className="button button--ghost" href="/books">
+              Explore the work
+            </Link>
+            <Link className="text-link" href="/about">
+              About CJW
+            </Link>
           </div>
         </div>
 

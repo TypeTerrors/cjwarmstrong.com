@@ -170,6 +170,42 @@ button {
   gap: 10px;
 }
 
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.header-buy-link {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border: 1px solid rgba(214, 154, 109, 0.34);
+  color: var(--accent-strong);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.header-buy-link:hover {
+  border-color: rgba(240, 177, 123, 0.72);
+  background: rgba(214, 154, 109, 0.08);
+  color: var(--foreground);
+  transform: translateY(-2px);
+}
+
+.header-buy-link__mobile {
+  display: none;
+}
+
 .site-socials a {
   display: inline-flex;
   align-items: center;
@@ -273,6 +309,12 @@ button {
   font-size: 0.8rem;
 }
 
+.site-mobile-nav nav .site-mobile-nav__buy {
+  margin-top: 6px;
+  border-top: 1px solid var(--line-strong);
+  color: var(--accent-strong);
+}
+
 .hero-grid,
 .page-hero,
 .about-layout,
@@ -293,7 +335,7 @@ button {
   min-height: 690px;
   background:
     linear-gradient(90deg, rgba(8, 10, 12, 0.24) 0%, rgba(8, 10, 12, 0.1) 47%, rgba(8, 10, 12, 0.24) 100%),
-    url("/site-art/home-hero-stage.png") center / cover no-repeat;
+    url("/site-art/home-hero-stage.webp") center / cover no-repeat;
 }
 
 .hero-grid::before {
@@ -412,6 +454,19 @@ button {
   filter: brightness(1.04);
 }
 
+.button--purchase {
+  box-shadow:
+    0 0 0 1px rgba(240, 177, 123, 0.14),
+    0 14px 34px rgba(0, 0, 0, 0.28);
+}
+
+.button--purchase::after {
+  content: "\2197";
+  margin-left: 12px;
+  font-size: 1rem;
+  line-height: 1;
+}
+
 .button--ghost {
   border-color: var(--line-strong);
   background: transparent;
@@ -519,7 +574,7 @@ button {
 .quote-banner--mountain {
   background:
     linear-gradient(135deg, rgba(9, 11, 14, 0.08), rgba(9, 11, 14, 0.58)),
-    url("/site-art/quote-mountain.png") center 72% / cover no-repeat,
+    url("/site-art/quote-mountain.webp") center 72% / cover no-repeat,
     rgba(11, 13, 15, 0.88);
 }
 
@@ -676,7 +731,7 @@ button {
   inset: 0;
   background:
     linear-gradient(90deg, rgba(8, 10, 12, 0.28), rgba(8, 10, 12, 0.04)),
-    url("/site-art/signup-galaxy.png") center / cover no-repeat;
+    url("/site-art/signup-galaxy.webp") center / cover no-repeat;
   opacity: 0.94;
   z-index: -1;
 }
@@ -747,6 +802,14 @@ button {
   text-transform: uppercase;
 }
 
+.site-footer__buy {
+  color: var(--accent-strong);
+}
+
+.site-footer__buy:hover {
+  color: var(--foreground);
+}
+
 .page-hero {
   grid-template-columns: minmax(0, 1fr) minmax(280px, 0.7fr);
   align-items: center;
@@ -762,7 +825,7 @@ button {
       rgba(7, 9, 11, 0.76) 42%,
       rgba(7, 9, 11, 0.28) 100%
     ),
-    url("/site-art/books-eye-panel.png") center / cover no-repeat;
+    url("/site-art/books-eye-panel.webp") center / cover no-repeat;
 }
 
 .page-hero--series {
@@ -775,7 +838,7 @@ button {
       rgba(7, 9, 11, 0.76) 42%,
       rgba(7, 9, 11, 0.28) 100%
     ),
-    url("/site-art/books-eye-panel.png") center / cover no-repeat;
+    url("/site-art/books-eye-panel.webp") center / cover no-repeat;
 }
 
 .page-hero--single {
@@ -967,7 +1030,7 @@ button {
   border: 1px solid var(--line);
   background:
     linear-gradient(135deg, rgba(8, 10, 12, 0.36), rgba(8, 10, 12, 0.84)),
-    url("/site-art/signup-galaxy.png") left center / cover no-repeat;
+    url("/site-art/signup-galaxy.webp") left center / cover no-repeat;
 }
 
 .signup-form--panel {
@@ -988,7 +1051,7 @@ button {
   }
 
   .site-header {
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto auto;
     gap: 18px;
     min-height: 74px;
     padding-top: 14px;
@@ -1003,6 +1066,24 @@ button {
   .site-nav,
   .site-socials {
     display: none;
+  }
+
+  .site-header__actions {
+    gap: 0;
+  }
+
+  .header-buy-link {
+    min-height: 38px;
+    padding: 0 13px;
+    font-size: 0.68rem;
+  }
+
+  .header-buy-link__desktop {
+    display: none;
+  }
+
+  .header-buy-link__mobile {
+    display: inline;
   }
 
   .site-mobile-nav {
@@ -1131,7 +1212,7 @@ button {
     min-height: auto;
     background:
       linear-gradient(90deg, rgba(7, 9, 11, 0.78) 0%, rgba(7, 9, 11, 0.48) 54%, rgba(7, 9, 11, 0.18) 100%),
-      url("/site-art/home-hero-stage.png") 62% center / cover no-repeat;
+      url("/site-art/home-hero-stage.webp") 62% center / cover no-repeat;
   }
 
   .hero-grid::before {

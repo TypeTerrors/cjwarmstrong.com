@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { books } from "../content";
 import { BooksList, SectionHeader, SiteShell } from "../components/site-shell";
+import { createPageMetadata } from "../metadata";
+
+export const metadata = createPageMetadata({
+  title: "Books",
+  description:
+    "Explore Pneumanauts, fiction, essays, and behind-the-book writing by CJW Armstrong.",
+  path: "/books",
+});
 
 type BooksPageProps = {
   searchParams?: Promise<{
@@ -38,9 +46,10 @@ export default async function BooksPage({ searchParams }: BooksPageProps) {
       <section className="page-hero page-hero--books">
         <div>
           <SectionHeader
+            as="h1"
             eyebrow="Books"
             title="Pneumanauts, fiction, and essays"
-            description="A focused entry point for Cameron's debut novel, the writing around it, and selected fiction and essays from The Pneumanaut."
+            description="A focused entry point for CJW's debut novel, the writing around it, and selected fiction and essays from The Pneumanaut."
           />
         </div>
         <div className="page-hero__art" />

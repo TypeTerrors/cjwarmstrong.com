@@ -1,14 +1,23 @@
 import { series } from "../content";
 import { SectionHeader, SiteShell } from "../components/site-shell";
+import { createPageMetadata } from "../metadata";
+
+export const metadata = createPageMetadata({
+  title: "Series",
+  description:
+    "Read CJW Armstrong's Pneumanauts publication notes, speculative fiction, and cosmic nonfiction.",
+  path: "/series",
+});
 
 export default function SeriesPage() {
   return (
     <SiteShell currentPath="/series">
       <section className="page-hero page-hero--single page-hero--series">
         <SectionHeader
+          as="h1"
           eyebrow="Series"
           title="The Pneumanaut sections"
-          description="The site now points readers toward the real bodies of work Cameron is publishing: the debut novel, speculative fiction, and long-form essays."
+          description="The site now points readers toward the real bodies of work CJW is publishing: the debut novel, speculative fiction, and long-form essays."
         />
       </section>
 

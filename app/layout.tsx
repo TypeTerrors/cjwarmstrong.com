@@ -27,21 +27,33 @@ const serif = Cormorant_Garamond({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "C. J. W. Armstrong",
-    template: "%s | C. J. W. Armstrong",
+    default: "CJW Armstrong",
+    template: "%s | CJW Armstrong",
   },
   description:
-    "C. J. W. Armstrong, author of Pneumanauts and The Pneumanaut on Substack.",
-  alternates: {
-    canonical: "/",
-  },
+    "CJW Armstrong, author of Pneumanauts and The Pneumanaut on Substack.",
+  authors: [{ name: "CJW Armstrong" }],
+  creator: "CJW Armstrong",
   openGraph: {
-    title: "C. J. W. Armstrong",
+    title: "CJW Armstrong",
     description:
       "Author of Pneumanauts and The Pneumanaut on Substack.",
-    url: "/",
-    siteName: "C. J. W. Armstrong",
+    siteName: "CJW Armstrong",
     type: "website",
+    images: [
+      {
+        url: "/site-art/home-hero-stage.png",
+        width: 1700,
+        height: 925,
+        alt: "Pneumanauts by CJW Armstrong",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CJW Armstrong",
+    description: "Author of Pneumanauts and The Pneumanaut on Substack.",
+    images: ["/site-art/home-hero-stage.png"],
   },
   robots: {
     index: true,

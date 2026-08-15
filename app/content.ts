@@ -9,6 +9,8 @@ export const navigation = [
 
 export const substackUrl = "https://pneumanauts.substack.com/";
 export const substackSubscribeUrl = "https://pneumanauts.substack.com/subscribe";
+export const bookStoreUrl =
+  "https://shop.ecloguepress.com/products/pneumanauts";
 
 export const substackSections = {
   novel: "https://pneumanauts.substack.com/s/the-novel",
@@ -35,7 +37,7 @@ export const featuredRelease = {
   subtitle:
     "A speculative road story about spirit-seekers, stoner-doom mythology, and the hunger for meaning.",
   summary:
-    "C. J. W. Armstrong's debut novel is being published by Eclogue Press, with essays, fiction, and behind-the-book notes gathered at The Pneumanaut on Substack.",
+    "CJW Armstrong's debut novel is being published by Eclogue Press, with essays, fiction, and behind-the-book notes gathered at The Pneumanaut on Substack.",
 };
 
 export const books = [

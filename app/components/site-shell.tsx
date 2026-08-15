@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import {
+  bookStoreUrl,
   books,
   contactDetails,
   mailingListBenefits,
@@ -19,6 +20,7 @@ type SectionHeaderProps = {
   eyebrow: string;
   title: string;
   description?: string;
+  as?: "h1" | "h2";
 };
 
 function thumbnailStyle(image: string): CSSProperties {
@@ -46,28 +48,41 @@ export function SiteShell({ children, currentPath }: SiteShellProps) {
             ))}
           </nav>
 
-          <div className="site-socials" aria-label="Publication links">
+          <div className="site-header__actions">
             <a
-              aria-label="Read The Pneumanaut on Substack"
-              className="site-socials__substack"
-              href={substackUrl}
+              aria-label="Buy Pneumanauts from Eclogue Press"
+              className="header-buy-link"
+              href={bookStoreUrl}
               rel="noreferrer"
               target="_blank"
             >
-              <span className="substack-mark" aria-hidden="true">
-                <span />
-                <span />
-                <span />
-              </span>
+              <span className="header-buy-link__desktop">Buy the book</span>
+              <span className="header-buy-link__mobile">Buy</span>
             </a>
-            <a
-              aria-label="Subscribe to The Pneumanaut on Substack"
-              href={substackSubscribeUrl}
-              rel="noreferrer"
-              target="_blank"
-            >
-              ML
-            </a>
+
+            <div className="site-socials" aria-label="Publication links">
+              <a
+                aria-label="Read The Pneumanaut on Substack"
+                className="site-socials__substack"
+                href={substackUrl}
+                rel="noreferrer"
+                target="_blank"
+              >
+                <span className="substack-mark" aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                </span>
+              </a>
+              <a
+                aria-label="Subscribe to The Pneumanaut on Substack"
+                href={substackSubscribeUrl}
+                rel="noreferrer"
+                target="_blank"
+              >
+                ML
+              </a>
+            </div>
           </div>
 
           <details className="site-mobile-nav">
@@ -82,6 +97,14 @@ export function SiteShell({ children, currentPath }: SiteShellProps) {
                   {item.label}
                 </Link>
               ))}
+              <a
+                className="site-mobile-nav__buy"
+                href={bookStoreUrl}
+                rel="noreferrer"
+                target="_blank"
+              >
+                Buy Pneumanauts
+              </a>
             </nav>
           </details>
         </header>
@@ -91,6 +114,14 @@ export function SiteShell({ children, currentPath }: SiteShellProps) {
         <footer className="site-footer">
           <p>© 2026 CJW Armstrong</p>
           <div>
+            <a
+              className="site-footer__buy"
+              href={bookStoreUrl}
+              rel="noreferrer"
+              target="_blank"
+            >
+              Buy Pneumanauts
+            </a>
             <Link href="/privacy-policy">Privacy Policy</Link>
             <Link href="/terms-of-use">Terms of Use</Link>
           </div>
@@ -104,11 +135,12 @@ export function SectionHeader({
   eyebrow,
   title,
   description,
+  as: Heading = "h2",
 }: SectionHeaderProps) {
   return (
     <div className="section-copy">
       <p className="section-eyebrow">{eyebrow}</p>
-      <h2 className="section-title">{title}</h2>
+      <Heading className="section-title">{title}</Heading>
       {description ? <p className="section-description">{description}</p> : null}
     </div>
   );
@@ -135,10 +167,10 @@ export function AuthorPreview() {
         <SectionHeader
           eyebrow="About the author"
           title="Science fiction, theology, and the strange edges of wonder"
-          description="C. J. W. Armstrong writes The Pneumanaut, a Substack publication about theological odysseys into deep cosmological questions, alongside fiction and notes on his debut novel."
+          description="CJW Armstrong writes The Pneumanaut, a Substack publication about theological odysseys into deep cosmological questions, alongside fiction and notes on his debut novel."
         />
         <Link className="button button--ghost" href="/about">
-          Read more about Cameron
+          Read more about CJW
         </Link>
       </div>
 
@@ -158,7 +190,7 @@ export function BooksGrid() {
       <div className="panel-heading">
         <SectionHeader
           eyebrow="Books"
-          title="Read Cameron's work"
+          title="Read CJW's work"
           description="Start with Pneumanauts, then follow the novel notes, fiction, and essays published through The Pneumanaut."
         />
         <Link className="text-link" href="/books">
@@ -204,7 +236,7 @@ export function MailingListBand() {
         <SectionHeader
           eyebrow="Stay connected"
           title="Subscribe through The Pneumanaut"
-          description="Cameron sends new posts, fiction, essays, and Pneumanauts updates through Substack. Subscribe there for the actual mailing list."
+          description="CJW sends new posts, fiction, essays, and Pneumanauts updates through Substack. Subscribe there for the actual mailing list."
         />
       </div>
 
@@ -276,9 +308,10 @@ export function ContactPanel() {
     <section className="contact-layout">
       <div className="contact-details">
         <SectionHeader
+          as="h1"
           eyebrow="Get in touch"
-          title="Follow Cameron's work at the source"
-          description="The Pneumanaut is the primary home for Cameron's essays, fiction, novel updates, and subscriber conversations."
+          title="Follow CJW's work at the source"
+          description="The Pneumanaut is the primary home for CJW's essays, fiction, novel updates, and subscriber conversations."
         />
 
         <ul className="detail-list">
@@ -325,9 +358,10 @@ export function MailingListContent() {
     <section className="mailing-layout">
       <div className="mailing-layout__hero">
         <SectionHeader
+          as="h1"
           eyebrow="Subscribe"
           title="The mailing list lives on Substack"
-          description="The Pneumanaut is a reader-supported publication. Subscribe on Substack to receive Cameron's essays, fiction, book notes, and Pneumanauts updates."
+          description="The Pneumanaut is a reader-supported publication. Subscribe on Substack to receive CJW's essays, fiction, book notes, and Pneumanauts updates."
         />
         <div className="signup-form signup-form--panel signup-form--links">
           <a
