@@ -82,7 +82,6 @@ jobs:
           {
             echo "### Preview deployed"
             echo ""
-            echo "- Vercel deployment: ${{ steps.deploy.outputs.deployment_url }}"
             echo "- Preview domain alias configured"
             if [ -n "${{ steps.preview-tag.outputs.tag_name }}" ]; then
               echo "- Tag: ${{ steps.preview-tag.outputs.tag_name }}"
@@ -144,7 +143,6 @@ jobs:
         if: github.event_name == 'push'
         continue-on-error: true
         env:
-          DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment_url }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           if [ -z "${OPENAI_API_KEY:-}" ]; then
@@ -163,8 +161,6 @@ jobs:
           fi
 
           {
-            echo "Deployment URL: $DEPLOYMENT_URL"
-            echo ""
             echo "Commits:"
             cat /tmp/release-commits.md
             echo ""
@@ -180,7 +176,6 @@ jobs:
             "Write brief GitHub release notes in Markdown for a production website deployment.",
             "Use plain English for a non-technical reader.",
             "Keep it to 2-4 bullets under the heading \"## Summary\".",
-            "Mention the deployment URL once at the end under \"## Deployment\".",
             "Do not invent details that are not supported by the commit list or diffstat.",
             "",
             context.slice(0, 60000),
@@ -200,16 +195,11 @@ jobs:
           }
 
           function writeFallbackNotes(error) {
-            const deploymentUrl = process.env.DEPLOYMENT_URL || "Deployment URL unavailable";
             const notes = [
               "## Summary",
               "",
               "- Production website deployment completed.",
               "- The automated detailed release summary was unavailable for this release.",
-              "",
-              "## Deployment",
-              "",
-              deploymentUrl,
             ].join("\n");
 
             console.warn(`OpenAI release notes unavailable: ${error.message}`);
@@ -275,7 +265,6 @@ jobs:
           {
             echo "### Production deployed"
             echo ""
-            echo "- Vercel deployment: ${{ steps.deploy.outputs.deployment_url }}"
             if [ -n "${{ steps.release-tag.outputs.tag_name }}" ]; then
               echo "- Tag: ${{ steps.release-tag.outputs.tag_name }}"
               echo "- Release: ${{ steps.release-tag.outputs.tag_name }}"
